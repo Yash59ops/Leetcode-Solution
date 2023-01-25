@@ -12,17 +12,17 @@ class Solution {
     int minOperation(string s) {
    int ans=0;
 
-        int n=s.size();
-
-        for(int i=0;i<=(s.size()/2);i++){
-
-            if(s.substr(0,i+1)==s.substr(i+1,i+1))ans=max(ans,i+1);
-
+     ans=s.length();
+        for(int i=0;i<s.length()/2;i++) {
+            bool isValid=true;
+            for(int j=0;j<=i && isValid;j++) {
+                if(s[j]!=s[j+i+1]) {
+                    isValid=false;
+                }
+            }
+            if(isValid) ans = s.length()-i;
         }
-
-        if(ans>0)n++;
-
-        return n-ans;
+        return ans;
     }
 };
 
