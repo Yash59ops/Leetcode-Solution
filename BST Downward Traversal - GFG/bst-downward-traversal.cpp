@@ -36,24 +36,31 @@ struct Node {
 
 class Solution{
 public:
- Node* find(Node* root,int target){
-        if(root == 0 || root->data == target) return root;
-        if(target>root->data) return find(root->right,target);
-        else return find(root->left,target);
-        
+Node*find(Node*root,int target){
+    if(root==0 || root->data==target){
+        return root;
     }
-    void sum(Node* root,int l,long long &ans){
+    if(target>root->data){
+        return find(root->right,target);
+    }
+    else{
+        return find(root->left,target);
+    }
+}
+ void sum(Node* root,int l,long long &ans){
         if(root==0) return;
         if(l==0) ans += root->data;
         sum(root->left,l-1,ans);
         sum(root->right,l+1,ans);
     }
     long long int verticallyDownBST(Node *root,int target){
-        // Code here
-        Node *f = find(root,target);
+        Node*f=find(root,target);
         long long s=-1;
-        if(f==0) return -1;
-        else s=0;
+        if(f==0){
+            return -1;
+        }else{
+            s=0;
+        }
         sum(f,0,s);
         return s-f->data;
     }
