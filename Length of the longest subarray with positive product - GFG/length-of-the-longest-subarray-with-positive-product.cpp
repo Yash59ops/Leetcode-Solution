@@ -15,26 +15,17 @@ class Solution {
         // Function to return the length of the
         //longest subarray with ppositive product
         int maxLength(vector<int> &arr,int n){
-int poslen=0 , neglen=0 ;
-int ans = 0;
-for(int i=0;i<n;i++){
-if(arr[i]==0) {
-poslen=0 ;
-neglen=0 ;
-}
-else if(arr[i]>0){
-poslen++ ;
-if(neglen>0) neglen++ ;
-ans = max(ans, poslen) ;
-}
-else{
-swap(poslen , neglen) ;
-neglen++ ;
-if(poslen>0) poslen++ ;
-ans = max(ans, poslen) ;
-}
-}
-return ans ;
+ int posLen = 0, negLen = 0, maxLen = 0;
+	for (int i : arr) {
+		if (i == 0) posLen = 0, negLen = 0;
+		else {
+			if (i < 0) swap(posLen, negLen);
+			if (posLen > 0 || i > 0) ++posLen;
+			if (negLen > 0 || i < 0) ++negLen;
+			maxLen = max(maxLen, posLen);
+		}
+	}
+	return maxLen;
 }
 };
 
