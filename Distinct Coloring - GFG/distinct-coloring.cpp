@@ -9,7 +9,7 @@ using namespace std;
 
 class Solution{   
 public:
-long long int f(int ind,int N,int r[],int g[],int b[],int prev,vector<vector<long long int>>& dp)
+    long long int f(int ind,int N,int r[],int g[],int b[],int prev,vector<vector<long long int>>& dp)
     {
         if(ind==N) return 0;
         
