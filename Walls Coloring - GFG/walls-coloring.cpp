@@ -13,8 +13,8 @@ public:
    int minCost(vector<vector<int>> &c, int N) {
          vector<vector<int>> dp(3,vector<int>(N));
           dp[0][0]=c[0][0];
-       dp[1][0]=c[0][1];
-       dp[2][0]=c[0][2];
+          dp[1][0]=c[0][1];
+          dp[2][0]=c[0][2];
        for(int i=1;i<N;i++){
             dp[0][i]=c[i][0]+min(dp[1][i-1],dp[2][i-1]);
             dp[1][i]=c[i][1]+min(dp[0][i-1],dp[2][i-1]);
