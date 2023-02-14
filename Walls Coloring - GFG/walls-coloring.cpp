@@ -10,18 +10,24 @@ using namespace std;
 
 class Solution{   
 public:
-   int minCost(vector<vector<int>> &c, int N) {
-         vector<vector<int>> dp(3,vector<int>(N));
-          dp[0][0]=c[0][0];
-          dp[1][0]=c[0][1];
-          dp[2][0]=c[0][2];
-       for(int i=1;i<N;i++){
-            dp[0][i]=c[i][0]+min(dp[1][i-1],dp[2][i-1]);
-            dp[1][i]=c[i][1]+min(dp[0][i-1],dp[2][i-1]);
-            dp[2][i]=c[i][2]+min(dp[0][i-1],dp[1][i-1]);
-       }
-       return min(dp[0][N-1],min(dp[1][N-1],dp[2][N-1]));
+    int minCost(vector<vector<int>> &c, int N) {
+         vector<vector<long long int>> dp(N,vector<long long int>(3,-1));
+        //base case assigning to dp
+        dp[0][0]=c[0][0];
+        dp[0][1]=c[0][1];
+        dp[0][2]=c[0][2];
+        
+        //traversing remaining rows
+        for(int i=1;i<N;i++)
+        {
+            dp[i][0]=c[i][0]+min(dp[i-1][1],dp[i-1][2]);
+            dp[i][1]=c[i][1]+min(dp[i-1][0],dp[i-1][2]);
+            dp[i][2]=c[i][2]+min(dp[i-1][1],dp[i-1][0]);
+        }
+        
+        return min(dp[N-1][0],min(dp[N-1][1],dp[N-1][2]));
     }
+    
 };
 
 
