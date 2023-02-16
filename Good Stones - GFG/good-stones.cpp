@@ -8,7 +8,7 @@ using namespace std;
 //User function Template for C++
 class Solution{
 public:
-bool check(int n,vector<int>&arr,vector<int>&issafe,int i){
+    bool check(int n,vector<int>&arr,vector<int>&issafe,int i){
     if(i<0 || i>=n){
         return true;
     }
@@ -46,7 +46,7 @@ bool check(int n,vector<int>&arr,vector<int>&issafe,int i){
        }
    }
    return ans;
-    }  
+    }    
 };
 
 //{ Driver Code Starts.
