@@ -7,8 +7,6 @@ using namespace std;
 // } Driver Code Ends
 //User function Template for C++
 class Solution{
-   // nadi ke ek taraf aagaye haii hum
-   
     bool checkNode(vector<int> &arr, vector<int> &isSafe, int n, int i)
     {
         if (i < 0 || i >= n)
