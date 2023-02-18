@@ -58,7 +58,7 @@ for(int i=0;i<n;i++){
     if(str[i]!='(' && str[i]!=')'){
         int num=0;
         while(i<n && isdigit(str[i])){
-           num=num*10+int(str[i]-48);
+           num=num*10+int(str[i]-'0');
             i++;
         }
         Node*n=new Node(num);
@@ -76,12 +76,7 @@ for(int i=0;i<n;i++){
     }
     }
     return s.top();
-    
 }
-
-
-
-    
 };
 
 //{ Driver Code Starts.
