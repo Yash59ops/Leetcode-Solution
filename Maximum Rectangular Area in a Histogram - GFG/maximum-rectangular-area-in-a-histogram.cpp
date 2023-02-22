@@ -53,8 +53,7 @@ class Solution
             b=next[i]-prev[i]-1;
             long long g=l*b;
             area=max(area,g);
-        
-            area=max(area,g);
+    
         }
         return area;
     }
