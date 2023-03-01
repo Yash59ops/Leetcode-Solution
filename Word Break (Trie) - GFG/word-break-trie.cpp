@@ -29,21 +29,32 @@ class Solution{
         }
         node->end = true;
     }
-    
-    bool find(string &s, TrieNode *node, int i) {
-        if(s.size() == i and node == root) return true;
-        if(!node->child[s[i]-'a']) return false;
-            node = node->child[s[i]-'a'];
-        if(node->end and find(s,root,i+1))
+    bool search(string s){
+        TrieNode*node=root;
+        for(char c:s){
+            if(!node->child[c-'a']){
+                return false;
+            }
+            node=node->child[c-'a'];
+        }
+        return node->end;
+    }
+    bool find(string s, TrieNode *node) {
+        if(s.size()==0){
             return true;
-        return find(s,node, i+1);
+        }
+        for(int i=1;i<=s.size();i++){
+            if(search(s.substr(0,i)) && find(s.substr(i,s.size()-i),node))
+            return true;
+        }
+        return false;
     }
     
     int wordBreak(string A, vector<string> &B) {
         for(auto &a :B)
             insert(a);
         TrieNode *tmp = root;
-        return find(A, tmp, 0);
+        return find(A, tmp);
     }
 };
 
