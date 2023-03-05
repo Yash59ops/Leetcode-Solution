@@ -10,18 +10,15 @@ class Solution{
   public:
     int minJumps(int arr[], int n){
      int v=0,max_j=INT_MIN,ans=0;
-       for(int i=0;i<n-1;i++){
-           max_j=max(max_j,arr[i]+i);
-           if(i==v){
-               ans++;
-               v=max_j;
-           }
-           if(arr[i]==0 && i==v){
-               return -1;
-           }
-           
-       }
-       return ans;
+     for(int i=0;i<n-1;i++){
+         max_j=max(arr[i]+i,max_j);
+         if(i==v){
+             ans++;
+             v=max_j;
+         }
+         if(arr[i]==0 && i==v)return -1;
+     }
+     return ans;
     }
 };
 
