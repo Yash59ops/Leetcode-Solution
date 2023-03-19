@@ -31,46 +31,21 @@ public:
 class Solution {
   public:
     vector<int> getDistinctDifference(int N, vector<int> &A) {
-        int maxi = 0;
-        for(int i = 0; i < N; i++)
+       unordered_set<int>st;
+        vector<int>ans(N);
+        
+        for(int i=0;i<N;i++)
         {
-            if(maxi<A[i])
-            {
-                maxi = A[i];
-            }
-        }
-        vector<int> left(maxi+1,0);
-        vector<int> right(maxi+1,0);
-        for(int j = 0; j < N; j++)
-        {
-            right[A[j]]++;
-        }
-        vector<int> ans;
-        int leftcount = 0;
-        int rightcount = 0;
-        for(int k = 0; k < maxi+1; k++)
-        {
-            if(right[k]>0)
-            {
-                rightcount++;
-            }
-        }
-        int count = 0;
-        for(int l = 0; l < N; l++)
-        {
-            if(right[A[l]]==1)
-            {
-                rightcount--;
-            }
-            count = leftcount - rightcount;
-            ans.push_back(count);
-            if(left[A[l]]==0)
-            {
-                leftcount++;
-            }
-            right[A[l]]--;
-            left[A[l]]++;
             
+                ans[i]=st.size();
+                st.insert(A[i]);
+        }
+        st.clear();
+        
+        for(int i=N-1;i>=0;i--)
+        {
+            ans[i]-=st.size();
+            st.insert(A[i]);
         }
         return ans;
     }
