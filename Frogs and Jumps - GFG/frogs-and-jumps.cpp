@@ -23,7 +23,7 @@ class Solution {
       int ans=0;
       for(int i=1;i<=leaves;i++){
           if(!visited[i]){
-              ans ++; 
+              ans++; 
           }
       }
       return ans;
