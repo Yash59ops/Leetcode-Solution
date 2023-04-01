@@ -13,9 +13,7 @@ public:
              if(n<r){
             return 0;
         }
-        if((n-r) < r){
-            r=n-r;
-        }
+       
         int dp[r+1];
         memset(dp,0, sizeof(dp));
         dp[0]=1;
