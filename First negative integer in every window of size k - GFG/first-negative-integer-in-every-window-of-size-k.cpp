@@ -29,35 +29,33 @@ int main() {
 // } Driver Code Ends
 
 
-vector<long long> printFirstNegativeInteger(long long int A[],
-                                             long long int N, long long int K) {
-            deque<long long int>dq;
-            vector<long long>ans;
-            for(long long int i=0;i<K;i++){
-                if(A[i]<0){
-                    dq.push_back(i);
-                }
-            }
-            if(dq.size()==0){
-                ans.push_back(0);
-            }else{
-                ans.push_back(A[dq.front()]);
-            }
-            for(long long int i=K;i<N;i++){
-                if(!dq.empty() && i-dq.front()>=K){
-                    dq.pop_front();
-                }
-                if(A[i]<0){
-                    dq.push_back(i);
-                }
-                if(dq.size()==0){
-                    ans.push_back(0);
-                }else{
-                    ans.push_back(A[dq.front()]);
-                }
-            }
-            
-            
-            return ans;
-            
+vector<long long> printFirstNegativeInteger(long long int A[],long long int N, long long int K) {
+                            vector<long long>ans;                     
+                            long long int i=0,j=0;
+                            queue<long long>q;
+                            while(j<N){
+                                if(A[j]<0){
+                                    q.push(A[j]);
+                                }
+                                if((j-i+1)<K){
+                                    j++;
+                                }else if((j-i+1)==K){
+                                    if(q.empty()){
+                                        ans.push_back(0);
+                                    }else{
+                                        ans.push_back(q.front());
+                                        if(q.front()==A[i]){
+                                            q.pop();
+                                        }
+                                        
+                                    }
+                                    i++;
+                                        j++;
+                                }
+                                
+                            }
+                                                 
+                                                 
+                                                 
+                                                 return ans;
  }
