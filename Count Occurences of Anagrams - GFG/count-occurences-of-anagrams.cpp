@@ -8,38 +8,31 @@ using namespace std;
 //User function template for C++
 class Solution{
 public:
+  bool allZero(vector<int>& count) {
+        return count==vector<int>(26, 0);
+    }
 	int search(string pat, string txt) {
-	      int count=0;
-
-     int m=pat.size(),n=txt.size();
-
-     vector<int> v1(26,0),v2(26,0);
-
-     for(int i=0;i<m;i++)
-
-     {
-
-         v1[pat[i]-'a']++;
-
-         v2[txt[i]-'a']++;
-
-     }
-
-     if(v1==v2) count++;
-
-     for(int i=m;i<n;i++)
-
-     {
-
-         v2[txt[i-m]-'a']--;
-
-         v2[txt[i]-'a']++;
-
-         if(v1==v2) count++;
-
-     }
-
-     return count;
+	   vector<int>counter(26,0);
+	   int k=pat.size();
+	   for(char &ch:pat){
+	       counter[ch-'a']++;
+	   }
+	   int n=txt.size();
+	   int l=0,r=0,ans=0;
+	   while(r<n){
+	       counter[txt[r]-'a']--;
+	       if(r-l+1==k){
+	           if(allZero(counter)){
+	               ans++;
+	           }   
+	           
+	           counter[txt[l]-'a']++;
+	           l++;
+	       }
+	       r++;
+	       
+	   }
+	   return ans;
 	}
 
 };
