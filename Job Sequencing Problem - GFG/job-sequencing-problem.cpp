@@ -26,34 +26,43 @@ struct Job
 class Solution 
 {
     public:
-    bool static comp(Job a,Job b){
-        return (a.profit>b.profit);
-    }
     //Function to find the maximum profit and the number of jobs done.
     vector<int> JobScheduling(Job arr[], int n) 
     { 
-       sort(arr,arr+n,comp);
-       int maxi=arr[0].dead;
-       for(int i=1;i<n;i++){
-           maxi=max(maxi,arr[i].dead);
-       }
-       int slot[maxi+1];
-       for(int i=0;i<=maxi;i++){
-           slot[i]=-1;
-       }
-       int count=0,profit=0;
-       for(int i=0;i<n;i++){
-        for(int j=arr[i].dead;j>0;j--){
-            if(slot[j]==-1){
-                slot[j]=i;
-                count++;
-                profit+=arr[i].profit;
-                break;
+         sort(arr, arr + n, [&](Job a, Job b)->bool {
+        if(a.profit > b.profit) 
+            return true; 
+        return false; 
+    });
+    
+//     for(int i = 0; i < n; i++) 
+//         cout << arr[i].dead << " " << arr[i].profit << endl; 
+    
+    vector<int> temp(n, -1); 
+    
+    for(int i = 0; i < n; i++) 
+    {
+        int ind = arr[i].dead - 1; 
+        while(ind >= 0 and ind < n) 
+        {
+            if(temp[ind] == -1)
+            {
+                temp[ind] = arr[i].profit;
+                break; 
             }
-        }   
-           
-       }
-       return {count,profit};
+            ind--;
+        }
+    }
+    
+    int cntJob = 0, maxProfit = 0;
+    for(int i = 0; i < n; i++) 
+    {
+        if(temp[i] != -1) 
+            cntJob++, maxProfit += temp[i]; 
+//         cout << temp[i] << endl; 
+    }
+    
+    return {cntJob, maxProfit};
     } 
 };
 
