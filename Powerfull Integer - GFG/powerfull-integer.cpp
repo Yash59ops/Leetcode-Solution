@@ -11,30 +11,29 @@ using namespace std;
 class Solution{
 public:
     int powerfullInteger(int n,vector<vector<int>> &intervals,int k){
-    map<int , int>mp; //index , and freq
-        for(auto it : intervals){
-            int left = it[0];
-            int right= it[1];
-            mp[left]++;
-            mp[right + 1]--;
+     int maxi = 0;
+        for(int i = 0;i < n;i++)
+        {
+            maxi = max(maxi,intervals[i][1]);
         }
-        int prefixSum = 0;
-        int ans = -1;
-        bool flag = false;
-        for(auto it : mp){
-            prefixSum += it.second; // calculating prefix sum 
-            if(prefixSum >= k){
-                ans = it.first;
-                flag = true;
-            }
-            else if( flag == true ){
-                ans = it.first - 1;
-                flag = false;
-            }else{
-                flag = false;
+        vector <int> ran(maxi + 2 , 0);
+        for(int i = 0;i < n;i++)
+        {
+            ran[intervals[i][0]]++;
+            ran[intervals[i][1] + 1]--;
+        }
+        int ele = -1;
+        int oc = -1;
+        int sum = 0;
+        for(int i = 0;i < maxi + 2 ;i++)
+        {
+            sum += ran[i];
+            if(sum >= k)
+            {
+                ele = i;
             }
         }
-        return ans;
+        return ele;
     }
 };
 
