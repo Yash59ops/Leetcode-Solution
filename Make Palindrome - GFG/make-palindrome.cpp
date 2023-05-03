@@ -11,25 +11,18 @@ using namespace std;
 class Solution{
 public:
     bool makePalindrome(int n,vector<string> &arr){
-     unordered_map<string,int> m;
-        for(int i=0;i<n;i++){
-            string s=arr[i];
-            reverse(s.begin(),s.end());
-            if(m.find(s)!=m.end()&&m[s]>0){
-                m[s]--;
-            }
-            else{
-                m[arr[i]]++;
-            }
+      unordered_map<string,int> mp;
+        
+        for(int i=0;i<n;i++)
+        {
+            string temp=arr[i];
+            reverse(temp.begin(),temp.end());
+            mp[temp]++;   
         }
-        for(auto i:m){
-            if(i.second>0){
-                string s=i.first;
-                reverse(s.begin(),s.end());
-                if(s!=i.first){
-                    return 0;
-                }
-            }
+        for(int i=0;i<n;i++)
+        {
+            if(mp[arr[i]]<1) return 0;
+            mp[arr[i]]--;
         }
         
         return 1;
