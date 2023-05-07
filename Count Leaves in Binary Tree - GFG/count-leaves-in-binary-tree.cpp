@@ -114,6 +114,7 @@ struct Node
          10
       /      \ 
    20       30 */
+
     void helper(Node * root,int &cnt){
         if(!root)return;
     
