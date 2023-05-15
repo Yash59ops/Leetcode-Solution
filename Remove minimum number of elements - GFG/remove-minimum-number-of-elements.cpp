@@ -21,7 +21,7 @@ class Solution{
        }
       for(auto i:um1){
           if(um2.find(i.first)!=um2.end()){
-              ans=ans+min(i.second,um2[i.first]);
+              ans+=min(i.second,um2[i.first]);
           }
       }
       return ans;
