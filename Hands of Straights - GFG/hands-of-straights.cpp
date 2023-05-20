@@ -6,8 +6,8 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-      bool isStraightHand(int n, int groupSize, vector<int> &hand) {
-        if(n%groupSize != 0) return false; 
+    bool isStraightHand(int n, int groupSize, vector<int> &hand) {
+       if(n%groupSize != 0) return false; 
         if(n == 1 || groupSize == 1) return true;
         
         sort(hand.begin(),hand.end());
@@ -47,6 +47,9 @@ class Solution {
             return true;
             
         return false;
+        
+        
+        
     }
 };
 
