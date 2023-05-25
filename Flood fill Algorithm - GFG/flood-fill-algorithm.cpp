@@ -9,7 +9,6 @@ void dfs(vector<vector<int>>&arr,vector<vector<int>>&vis,int i,int j,int new_,in
     if(i<0 || j<0 || i>=arr.size() || j>=arr[0].size() || vis[i][j] || arr[i][j]!=old){
         return;
     }
-    
     vis[i][j]=1;
     arr[i][j]=new_;
     dfs(arr,vis,i+1,j,new_,old);
