@@ -22,7 +22,27 @@ void dfs(vector<vector<int>>&arr,vector<vector<int>>&vis,int i,int j,int new_,in
        int row=image.size();
        int col=image[0].size();
        vector<vector<int>>vis(row,vector<int>(col,0));
-       dfs(image,vis,sr,sc,newColor,oldimage);
+    //   dfs(image,vis,sr,sc,newColor,oldimage);
+      queue<pair<int,int>>q;
+      q.push({sr,sc});
+      vis[sr][sc]=1;
+      image[sr][sc]=newColor;
+      vector<pair<int,int>>dirs={{0,-1},{-1,0},{0,1},{1,0}};
+      while(!q.empty()){
+          int x=q.front().first;
+          int y=q.front().second;
+          q.pop();
+          for(auto it:dirs){
+              int x_=x+it.first;
+              int y_=y+it.second;
+            if(x_>=0 && x_<row &&  y_>=0 && y_<col && image[x_][y_]==oldimage && !vis[x_][y_]){
+        image[x_][y_]=newColor;
+        q.push({x_,y_});
+        vis[x_][y_]=1;
+    }
+          }
+      }
+      
        return image;
     }
 };
