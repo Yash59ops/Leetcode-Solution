@@ -10,8 +10,7 @@ class Solution {
       q.push({row,col});
       visited[row][col]=true;
       while(!q.empty()){
-          int n=q.size();
-          for(int itr=0;itr<n;itr++){
+      
       int x=q.front().first;
       int y=q.front().second;
       q.pop();
@@ -25,7 +24,7 @@ class Solution {
                }
           }
       }
-          }
+          
           
       }
       
