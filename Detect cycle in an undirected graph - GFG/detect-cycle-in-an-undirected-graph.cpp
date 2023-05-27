@@ -22,10 +22,43 @@ class Solution {
         return false;
         
     }
+    bool isCycleBFS(int src, vector<int>* adj, vector<bool>& visited) {
+        unordered_map<int, int> parent;
+        parent[src] = -1;
+        visited[src] = true;
+        queue<int> q;
+        q.push(src);
+        
+        while(!q.empty()) {
+            int front = q.front();
+            q.pop();
+            
+            for(auto neighbour : adj[front]) {
+                if(visited[neighbour] == true && neighbour != parent[front]) {
+                    return true;
+                }
+                else if(!visited[neighbour]) {
+                    q.push(neighbour);
+                    visited[neighbour] = true;
+                    parent[neighbour] = front;
+                }
+            }
+        }
+        return false;
+    }
+    
     bool isCycle(int V, vector<int> adj[]) {
     vector<bool>vis(V,false);
+/*
     for(int i=0;i<V;i++){
         if(!vis[i] && dfs(adj,i,vis,-1)){
+            return true;
+        }
+    }
+    return false;
+    */
+    for(int i=0;i<V;i++){
+        if(!vis[i] && isCycleBFS(i,adj,vis)){
             return true;
         }
     }
