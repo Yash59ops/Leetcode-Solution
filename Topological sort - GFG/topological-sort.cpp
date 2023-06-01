@@ -7,7 +7,7 @@ class Solution
 {
 	public:
 	//Function to return list containing vertices in Topological order. 
-	void dfs(vector<int>adj[],vector<int>&vis,int src,stack<int>&st){
+void dfs(vector<int>adj[],vector<int>&vis,int src,stack<int>&st){
 	    vis[src]=true;
 	    for(auto it:adj[src]){
 	        if(!vis[it]){
