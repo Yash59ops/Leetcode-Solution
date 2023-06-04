@@ -8,31 +8,31 @@ using namespace std;
 //User function template for C++
 class Solution{
 public:
-  bool allZero(vector<int>& count) {
-        return count==vector<int>(26, 0);
-    }
+bool all_zero(vector<int>&count){
+  return count==vector<int>(26, 0);
+}
 	int search(string pat, string txt) {
-	   vector<int>counter(26,0);
+	  vector<int>mp(26,0);
+	   for(auto &ch:pat){
+	       mp[ch-'a']++;
+	   }
+	   int count=0;
+	   int i=0,j=0;
 	   int k=pat.size();
-	   for(char &ch:pat){
-	       counter[ch-'a']++;
-	   }
 	   int n=txt.size();
-	   int l=0,r=0,ans=0;
-	   while(r<n){
-	       counter[txt[r]-'a']--;
-	       if(r-l+1==k){
-	           if(allZero(counter)){
-	               ans++;
-	           }   
-	           
-	           counter[txt[l]-'a']++;
-	           l++;
+	   while(j<n){
+	          mp[txt[j]-'a']--;
+	       if(j-i+1==k){
+	           if(all_zero(mp)){
+	             
+	               count++;
+	           }
+	           mp[txt[i]-'a']++;
+	           i++;
 	       }
-	       r++;
-	       
+	       j++;
 	   }
-	   return ans;
+	   return count;
 	}
 
 };
