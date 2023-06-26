@@ -10,21 +10,17 @@ using namespace std;
 class Solution{
 public:
     int nCr(int n, int r){
-             if(n<r){
+         if(n<r){
             return 0;
         }
-       
-        int dp[r+1];
-        memset(dp,0, sizeof(dp));
+        int mod=10^9+7;
+        vector<int>dp(r+1,0);
         dp[0]=1;
         for(int i=1;i<=n;i++){
-            
             for(int j=min(r,i);j>0;j--){
                 dp[j]=(dp[j]+dp[j-1])%1000000007;
             }
-            
         }
-        
         return dp[r];
     }
 };
