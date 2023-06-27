@@ -120,10 +120,10 @@ class Solution
                if(cur->right){
                    q.push({cur->right,l+1});
                }
-               if(mp[l]!=0){
-                   continue;
-               }
+              if(mp.find(l)==mp.end())
+           {
                mp[l]=cur;
+           }
            }
        }
        for(auto it:mp){
