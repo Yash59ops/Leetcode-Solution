@@ -88,42 +88,34 @@ struct Node
   struct Node* right;
 };*/
 
-/*The structure of the Binary Tree Node  is
-struct Node
-{
-  char data;
-  struct Node* left;
-  struct Node* right;
-};*/
-
 class Solution {
   public:
-unordered_map<string,int> mp;
-    string sol(Node* root)
-    {
-        if(!root) return "$";
-        string s = "";
-        if(!root->left and !root->right){
-            s+=to_string(root->data);
-            return s;
-        }
-        s+= to_string(root->data)+"*";
-        s+=sol(root->left);
-        s+=sol(root->right);
-        mp[s]++;
-        return s;
-    }
     /*This function returns true if the tree contains 
     a duplicate subtree of size 2 or more else returns false*/
-    int dupSub(Node *root) {
-         // code here
-        mp.clear();
-        sol(root);
-        for(auto it:mp){
-            if(it.second>=2) return 1;
+    string help(Node*root,unordered_map<string,int>&mp){
+        if(!root){
+            return "#";
         }
-        return 0;
+        if(!root->left && !root->right){
+         return to_string(root->data);
+        }
+        string l=help(root->left,mp);
+        string r=help(root->right,mp);
+        string sol=l+","+r+","+to_string(root->data);
+        mp[sol]++;
+        return sol;
     }
+    int dupSub(Node *root) {
+         unordered_map<string,int>mp;
+         help(root,mp);
+         for(auto it:mp){
+             if(it.second>=2){
+             
+                 return 1;
+             }
+         }
+         return 0;
+             }
 };
 
 //{ Driver Code Starts.
