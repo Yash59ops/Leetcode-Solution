@@ -120,29 +120,27 @@ struct Node
     int data;
     Node* left, * right;
 }; */
-void solve(Node* root,unordered_map<int,vector<int>> &mp,int HD){
-if(!root) return ;
-// me ek ki mapping kruga
-mp[HD].push_back(root->data);
-// left subtree ki mapping ye krke layega(left me HD -1)
-solve(root->left,mp,HD -1);
-// right subtree ki mapping ye krke laayega
-solve(root->right,mp,HD);
+
+void diag_nekal(unordered_map<int,vector<int>>&mp,Node*root,int ind){
+    if(!root){
+        return;
+    }
+    mp[ind].push_back(root->data);
+    diag_nekal(mp,root->left,ind-1);
+    diag_nekal(mp,root->right,ind);
 }
-vector<int> diagonal(Node* root){
-vector<int> ans;
-if(!root) return ans;
-// to store keys in random order, unlike in ordered map keys will be sorted
-unordered_map<int,vector<int>> mp;
-solve(root,mp,0);
-// for each key untill lowest key push map vector elements to ans vector
-int i=0,k=0;
-while(k<mp.size()){
-for(int j =0; j< mp[i].size();j++){
-    ans.push_back(mp[i][j]);
-}
-i--;
-k++;
-}
-return ans;
+vector<int> diagonal(Node *root)
+{
+   unordered_map<int,vector<int>>mp;
+   vector<int>ans;
+    diag_nekal(mp,root,0);
+    int i=0,k=0;
+    while(k<mp.size()){
+        for(int j=0;j<mp[i].size();j++){
+            ans.push_back(mp[i][j]);
+        }
+        i--;
+        k++;
+    }
+   return ans;
 }
