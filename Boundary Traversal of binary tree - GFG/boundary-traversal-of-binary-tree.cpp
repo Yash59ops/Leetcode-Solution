@@ -105,54 +105,51 @@ struct Node
 
 class Solution {
 public:
-   void leftprint(vector<int>&v,Node*root){
+void left_nekal(vector<int>&ans,Node*root){
     if(!root){
-        return;
+       return; 
     }
     if(root->left){
-        v.push_back(root->data);
-        leftprint(v,root->left);
-     
+        ans.push_back(root->data);
+        left_nekal(ans,root->left);
     }else if(root->right){
-        v.push_back(root->data);
-        leftprint(v,root->right);
+        ans.push_back(root->data);
+        left_nekal(ans,root->right);
     }
 }
-void leaf(vector<int>&v,Node*root){
+void leaf_nekal(vector<int>&ans,Node*root){
     if(!root){
         return;
     }
-    leaf(v,root->left);
-    leaf(v,root->right);
-    if(!root->left&&!root->right){
-        v.push_back(root->data);
+    leaf_nekal(ans,root->left);
+    leaf_nekal(ans,root->right);
+    if(!root->left && !root->right){
+        ans.push_back(root->data);
     }
 }
-void rightprint(vector<int>&v,Node*root){
+void right_nekal(vector<int>&ans,Node*root){
     if(!root){
-        return;
+       return; 
     }
     if(root->right){
-        rightprint(v,root->right);
-        v.push_back(root->data);
+        right_nekal(ans,root->right);
+        ans.push_back(root->data);
     }else if(root->left){
-        rightprint(v,root->left);
-        v.push_back(root->data);
+        right_nekal(ans,root->left);
+        ans.push_back(root->data);
     }
 }
-
     vector <int> boundary(Node *root)
     {
-        vector<int>v;
         if(!root->left && !root->right){
             return {root->data};
         }
-        v.push_back(root->data);
-        leftprint(v,root->left);
-        leaf(v,root);
-        rightprint(v,root->right);
-        //Your code here
-        return v;
+        vector<int>ans;
+        ans.push_back(root->data);
+        left_nekal(ans,root->left);
+        leaf_nekal(ans,root);
+        right_nekal(ans,root->right);
+        return ans;
     }
 };
 
