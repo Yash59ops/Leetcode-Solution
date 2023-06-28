@@ -120,11 +120,8 @@ struct Node
     int data;
     Node* left, * right;
 }; */
-int answer = INT_MAX;
 void solve(Node* root,unordered_map<int,vector<int>> &mp,int HD){
 if(!root) return ;
-//to keep track of lowest key 
-answer = min(answer,HD);
 // me ek ki mapping kruga
 mp[HD].push_back(root->data);
 // left subtree ki mapping ye krke layega(left me HD -1)
