@@ -139,11 +139,13 @@ if(!root) return ans;
 unordered_map<int,vector<int>> mp;
 solve(root,mp,0);
 // for each key untill lowest key push map vector elements to ans vector
-for(int i = 0;i >= answer;i--){
-
+int i=0,k=0;
+while(k<mp.size()){
 for(int j =0; j< mp[i].size();j++){
     ans.push_back(mp[i][j]);
 }
+i--;
+k++;
 }
 return ans;
 }
