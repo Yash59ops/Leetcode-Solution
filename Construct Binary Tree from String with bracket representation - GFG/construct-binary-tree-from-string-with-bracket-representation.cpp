@@ -49,34 +49,46 @@ public:
 
 
 class Solution{
+Node*solve(string s,int &i){
+    string str="";
+    if(i>=s.length()){
+        return NULL;
+    }
+    int ele=0;
+     Node*ans=NULL;
+    while(s[i]>='0' && s[i]<='9'){
+        ele=ele*10+s[i]-'0';
+         ans= new Node(ele);
+        i++;
+    }
+    
+      if(s[i]=='('){
+        i++;
+        ans->left=solve(s,i);
+    }
+      
+      if(s[i]=='('){
+        i++;
+        ans->right=solve(s,i);
+    }
+    
+    if(s[i]==')'){
+        i++;
+        return ans;
+    }
+    
+   
+   i++;
+   return ans;
+ 
+}
+    
 public:
     // function to construct tree from string
     Node *treeFromString(string str){
-int n=str.length();
-stack<Node*>s;
-for(int i=0;i<n;i++){
-    if(str[i]!='(' && str[i]!=')'){
-        int num=0;
-        while(i<n && isdigit(str[i])){
-           num=num*10+int(str[i]-'0');
-            i++;
-        }
-        Node*n=new Node(num);
-        s.push(n);
-        i--;
-    }else if(str[i]==')'){
-        Node*x=s.top();
-        s.pop();
-        Node*y=s.top();
-        if(!(y->left)){
-            y->left=x;
-        }else{
-            y->right=x;
-        }
+        int ind=0;
+        return solve(str,ind);
     }
-    }
-    return s.top();
-}
 };
 
 //{ Driver Code Starts.
