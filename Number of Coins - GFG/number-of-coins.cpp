@@ -9,7 +9,7 @@ class Solution{
 	int help(int coins[],int n,int tar,int ind,vector<vector<int>>&dp){
 	 if(ind==n-1){
 	     if(tar%coins[n-1]==0){
-	         return tar/coins[n-1];
+	         return dp[ind][tar]=tar/coins[n-1];
 	     }else{
 	         return  1e9;
 	     }
@@ -26,12 +26,29 @@ class Solution{
 	int minCoins(int coins[], int M, int V) 
 	{ 
 	    int n=M;
-	    vector<vector<int>>dp(n+1,vector<int>(V+1,-1));
-	   int ans=help(coins,M,V,0,dp);
-        if(ans>=1e9)
-        return -1;
-        else
-        return ans;
+	    vector<vector<int>>dp(n+1,vector<int>(V+1,0));
+	 //  int ans=help(coins,M,V,0,dp);
+	    
+        //if(ans>=1e9)
+    //    return -1;
+      //  else
+        //return ans;
+ for(int target=0;target<=V;target++){
+            if(target%coins[n-1]==0)  dp[n-1][target]=target/coins[n-1];
+            else dp[n-1][target]=1e9;
+        }
+        for(int ind=n-2;ind>=0;ind--){
+            for(int target=0;target<=V;target++){
+                int notTake = 0+dp[ind+1][target];
+                int take=INT_MAX;
+                if(coins[ind]<=target){
+                    take=1+dp[ind][target-coins[ind]];
+                }
+                dp[ind][target]=min(take,notTake);
+            }
+        }
+        if(dp[0][V]>=1e9){return -1;}
+        else return dp[0][V];
 	} 
 	  
 };
