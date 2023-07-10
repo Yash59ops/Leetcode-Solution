@@ -6,30 +6,32 @@ using namespace std;
 class Solution{
 
 	public:
-	int solve(int arr[],int n,int target,vector<int>&dp){
-	    if(target==0)
-	    return 0;
-	    if(target<0)
-	    return INT_MAX;
-	    if(dp[target]!=-1)
-	    return dp[target];
-	    int ans=INT_MAX;
-	    for(int i=0;i<n;i++){
-	        int m=solve(arr,n,target-arr[i],dp);
-	        if(m!=INT_MAX){
-	            ans=min(ans,1+m);
-	        }
-	    }
-	    return dp[target]=ans;
+	int help(int coins[],int n,int tar,int ind,vector<vector<int>>&dp){
+	 if(ind==n-1){
+	     if(tar%coins[n-1]==0){
+	         return tar/coins[n-1];
+	     }else{
+	         return  1e9;
+	     }
+	 }
+	     if(dp[ind][tar]!=-1){
+	         return dp[ind][tar];
+	     }
+	    int pick=1e9;
+	    if(coins[ind]<=tar)
+	    pick=1+help(coins,n,tar-coins[ind],ind,dp);
+	    int not_pick=help(coins,n,tar,ind+1,dp);
+	    return dp[ind][tar]=min(pick,not_pick);
 	}
 	int minCoins(int coins[], int M, int V) 
 	{ 
-	   vector<int>dp(V+1,-1);
-	   int ans=solve(coins,M,V,dp);
-	   if(ans==INT_MAX){
-	       return -1;
-	   }
-	   return ans;
+	    int n=M;
+	    vector<vector<int>>dp(n+1,vector<int>(V+1,-1));
+	   int ans=help(coins,M,V,0,dp);
+        if(ans>=1e9)
+        return -1;
+        else
+        return ans;
 	} 
 	  
 };
