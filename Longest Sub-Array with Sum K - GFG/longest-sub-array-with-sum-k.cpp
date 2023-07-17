@@ -8,7 +8,7 @@ class Solution{
     public:
     int lenOfLongSubarr(int A[],  int N, int K) 
     { 
-        unordered_map<int,int>mp;
+           unordered_map<int,int>mp;
         mp[0]=-1;
         int ans=0,sum=0;
         for(int i=0;i<N;i++){
@@ -21,8 +21,6 @@ class Solution{
             }
         }
         return ans;
-        
-        
     } 
 
 };
