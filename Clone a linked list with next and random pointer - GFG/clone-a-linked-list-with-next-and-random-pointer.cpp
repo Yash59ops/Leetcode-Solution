@@ -32,8 +32,8 @@ class Solution
        }
        a=head;
        while(a){
-           a->next->arb=a->arb?a->arb->next:a->arb;
-           a=a->next->next;
+       a->next->arb=a->arb?a->arb->next:a->arb;
+       a=a->next->next;
        }
        a=head;
        Node*c=head->next;
@@ -44,6 +44,7 @@ class Solution
            a=a->next;
            c=c->next;
        }
+       
        return temp;
     }
 
