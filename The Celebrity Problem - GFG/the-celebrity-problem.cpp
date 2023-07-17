@@ -10,22 +10,53 @@ using namespace std;
 class Solution 
 {
     public:
+    bool janta_hai_kya(vector<vector<int>>&A,int a,int b){
+        if(A[a][b]==1){
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
     //Function to find if there is a celebrity in the party or not.
     int celebrity(vector<vector<int> >& M, int n) 
     {
-        int c = 0;
-       for(int i = 1; i < n; i++){
-           if(M[c][i] == 1){
-               c = i;
+       stack<int>st;
+       for(int i=0;i<n;i++){
+           st.push(i);
+       }
+       while(st.size()>1){
+           int a=st.top();
+           st.pop();
+           int b=st.top();
+           st.pop();
+           if(janta_hai_kya(M,a,b)){
+               st.push(b);
+           }else{
+               st.push(a);
            }
        }
-       
-       for(int i = 0; i < n; i++){
-           if(i != c && (M[c][i] == 1 || M[i][c] == 0))
-               return (-1);
+       int ans=st.top();
+       int count=0;
+       for(int i=0;i<n;i++){
+           if(M[ans][i]==0){
+               count++;
+           }
        }
-       
-       return (c);
+       if(count!=n){
+           return -1;
+       }
+       count=0;
+       for(int i=0;i<n;i++){
+           if(M[i][ans]==1){
+               count++;
+           }
+       }
+       if(count!=n-1){
+           return -1;
+       }
+       st.pop();
+       return ans;
     }
 };
 
