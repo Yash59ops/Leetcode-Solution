@@ -51,25 +51,20 @@ class Solution
     public:
     struct node *reverse (struct node *head, int k)
     { 
-        if(head==NULL||head->next==NULL)
-        return head;
-     struct node*cur=head;
-     struct node*prev=NULL;
-     struct node*nextnode=head->next;
-     struct node*a=head;
-     int i=0;
-     while(i<k-1&&nextnode!=NULL){
-         cur->next=prev;
-         prev=cur;
-         cur=nextnode;
-         nextnode=cur->next;
-         i++;
-     }
-     cur->next=prev;
-     a->next=reverse(nextnode,k);
-     return cur;
-        // Complete this method
-        
+        struct node*cur=head;
+        struct node*nextnode=head;
+        struct node*prev=NULL;
+        int i=0;
+        while(i<k && cur){
+            nextnode=cur->next;
+            cur->next=prev;
+            prev=cur;
+            cur=nextnode;
+            i++;
+        }
+         if(nextnode)
+        head->next=reverse(nextnode,k);
+        return prev;
     }
 };
 
