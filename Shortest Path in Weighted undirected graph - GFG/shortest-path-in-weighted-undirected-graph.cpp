@@ -4,47 +4,56 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
+    typedef pair<int,int> p;
   public:
+  
     vector<int> shortestPath(int n, int m, vector<vector<int>>& edges) {
-        vector<pair<int,int>>adj[n+1];
-         for (auto it : edges)
-        {
-            adj[it[0]].push_back({it[1], it[2]});
-            adj[it[1]].push_back({it[0], it[2]});
-        }
-      priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
-      vector<int>dist(n+1,1e9);
-      vector<int>parent(n+1);
-      for(int i=1;i<=n;i++){
-          parent[i]=i;
-      }
-      pq.push({0,1});
-      dist[1]=0;
-      while(!pq.empty()){
-          int distas=pq.top().first;
-          int node=pq.top().second;
-          pq.pop();
-          for(auto it:adj[node]){
-              int adjnode=it.first;
-              int d=it.second;
-              if(distas+d<dist[adjnode]){
-                  dist[adjnode]=distas+d;
-                  pq.push({dist[adjnode],adjnode});
-                  parent[adjnode]=node;
+       vector<int>ans;
+       unordered_map<int,vector<p>>graph;
+       for(auto &i:edges){
+           int u=i[0];
+           int v=i[1];
+           int wt=i[2];
+           graph[v].push_back({u,wt});
+           graph[u].push_back({v,wt});
+       }
+       vector<int>parent(n+1);
+       for(int i=1;i<=n;i++){
+           parent[i]=i;
+       }
+       priority_queue<p,vector<p>,greater<p>>pq;
+       pq.push({0,1});
+       vector<int>dist(n+1,1e9);
+       dist[1]=0;
+       while(!pq.empty()){
+           int wt=pq.top().first;
+           int u=pq.top().second;
+           pq.pop();
+          for(auto &it:graph[u]){
+              int v=it.first;
+              int v_wt=it.second;
+              if(wt+v_wt<dist[v]){
+                  dist[v]=wt+v_wt;
+                  pq.push({dist[v],v});
+                  parent[v]=u;
               }
           }
-      }
-         if(dist[n] == 1e9) return {-1};
-      vector<int>ans;
-      int node=n;
-      
-      while(parent[node]!=node){
-          ans.push_back(node);
-          node=parent[node];
-      }
-     ans.push_back(1);
-      reverse(ans.begin(),ans.end());
-      return ans;
+           
+       }
+       if(dist[n]==1e9){
+           return {-1};
+       }
+       int node=n;
+       while(parent[node]!=node){
+           ans.push_back(node);
+           node=parent[node];
+           
+       }
+       ans.push_back(1);
+       reverse(ans.begin(),ans.end());
+       
+       
+       return ans;
     }
 };
 
