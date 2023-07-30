@@ -9,29 +9,29 @@ using namespace std;
 class Solution {
   public:
     vector<int> shortestPath(vector<vector<int>>& edges, int N,int M, int src){
-     vector<int> adj[N];
-        for(auto it : edges){
-            int  u = it[0];
-            int v = it[1];
-            
-            adj[u].push_back(v);
-            adj[v].push_back(u);
-        }
-      queue<int>q;
-      vector<int>dist(N,1e9);
-      q.push(src);
-      dist[src]=0;
-      while(!q.empty()){
-          int node=q.front();
-          q.pop();
-          for(auto it:adj[node]){
-              if(dist[node]+1<dist[it]){
-                  dist[it]=1+dist[node];
-                  q.push(it);
-              }
-          }
-      }
-      vector<int>ans(N,-1);
+       vector<int>dist(N,1e9);
+       unordered_map<int,vector<int>>adj;
+       for(auto &it:edges){
+           int u=it[0];
+           int v=it[1];
+           adj[u].push_back(v);
+           adj[v].push_back(u);
+       }
+       queue<int>q;
+       q.push(src);
+       dist[src]=0;
+       while(!q.empty()){
+           int u=q.front();
+           q.pop();
+           for(auto &v:adj[u]){
+               if(dist[u]+1<dist[v]){
+                   dist[v]=1+dist[u];
+                   q.push(v);
+               }
+           }
+           
+       }
+        vector<int>ans(N,-1);
       for(int i=0;i<N;i++){
           if(dist[i]!=1e9){
               ans[i]=dist[i];
