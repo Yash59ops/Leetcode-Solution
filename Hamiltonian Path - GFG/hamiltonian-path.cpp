@@ -6,7 +6,7 @@ using namespace std;
 class Solution
 {
     public:
-  bool visit(int i,int cnt,vector<bool>&vis,vector<int>m[],int N){
+  bool visit(int i,int cnt,vector<bool>vis,vector<int>m[],int N){
       if(cnt==N){
           return true;
       }
@@ -17,7 +17,7 @@ class Solution
           }
           
       }
-      vis[i]=false;
+     
       return false;
   }
     bool check(int N,int M,vector<vector<int>> Edges)
