@@ -18,15 +18,16 @@ for (int i=0; i < size; i++)
 class Solution
 {
     public:
+    //Function to merge k sorted arrays.
     class node{
-        public:
-        int data;
-        int apos,vpos;
-        node(int v,int i,int j){
-            this->data=v;
-            this->apos=i;
-            this->vpos=j;
-        }
+      public:
+      int data;
+      int apos,vpos;
+      node(int v,int i,int j){
+          this->data=v;
+          this->apos=i;
+          this->vpos=j;
+      }
     };
     class compare{
         public:
@@ -35,35 +36,29 @@ class Solution
         }
         
     };
-    
-    //Function to merge k sorted arrays.
     vector<int> mergeKArrays(vector<vector<int>> arr, int K)
     {
-        priority_queue<node*,vector<node*>,compare>pq;
         vector<int>ans;
+        priority_queue<node*,vector<node*>,compare>pq;
         for(int i=0;i<K;i++){
             node*temp=new node(arr[i][0],i,0);
             pq.push(temp);
         }
-
         while(!pq.empty()){
-            node*temp=pq.top();
-            ans.push_back(temp->data);
+            node*cur=pq.top();
+            ans.push_back(cur->data);
             pq.pop();
-            int ap=temp->apos;
-            int vp=temp->vpos;
-            if(vp+1<arr[ap].size()){
-                node*next=new node(arr[ap][vp+1],ap,vp+1);
-                pq.push(next);
+            int arr_pos=cur->apos;
+            int index=cur->vpos;
+            if(index+1<arr[arr_pos].size()){
+                node*n=new node(arr[arr_pos][index+1],arr_pos,index+1);
+                pq.push(n);
             }
-            
         }
         
         return ans;
-        //code here
     }
 };
-
 
 //{ Driver Code Starts.
 
