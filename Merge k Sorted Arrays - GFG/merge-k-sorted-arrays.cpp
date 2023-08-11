@@ -18,23 +18,52 @@ for (int i=0; i < size; i++)
 class Solution
 {
     public:
+    class node{
+        public:
+        int data;
+        int apos,vpos;
+        node(int v,int i,int j){
+            this->data=v;
+            this->apos=i;
+            this->vpos=j;
+        }
+    };
+    class compare{
+        public:
+        bool operator()(node*a,node*b){
+            return a->data>b->data;
+        }
+        
+    };
+    
     //Function to merge k sorted arrays.
     vector<int> mergeKArrays(vector<vector<int>> arr, int K)
     {
-       priority_queue<int>pq;
-        for(int i=0;i<arr.size();i++){
-            for(int j=0;j<arr[i].size();j++){
-                pq.push(arr[i][j]*(-1));
-            }
+        priority_queue<node*,vector<node*>,compare>pq;
+        vector<int>ans;
+        for(int i=0;i<K;i++){
+            node*temp=new node(arr[i][0],i,0);
+            pq.push(temp);
         }
-        vector<int>v;
+
         while(!pq.empty()){
-            v.push_back(pq.top()*(-1));
+            node*temp=pq.top();
+            ans.push_back(temp->data);
             pq.pop();
+            int ap=temp->apos;
+            int vp=temp->vpos;
+            if(vp+1<arr[ap].size()){
+                node*next=new node(arr[ap][vp+1],ap,vp+1);
+                pq.push(next);
+            }
+            
         }
-        return v;
+        
+        return ans;
+        //code here
     }
 };
+
 
 //{ Driver Code Starts.
 
