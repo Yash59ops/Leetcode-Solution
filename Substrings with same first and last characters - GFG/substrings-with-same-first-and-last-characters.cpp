@@ -11,14 +11,13 @@ public:
 
 	int countSubstringWithEqualEnds(string s)
 	{
-	         unordered_map<char,int> mp;
-       int count=0;
-       for(int i=0;i<s.length();i++)
-       {
-            mp[s[i]]++;
-           count+=mp[s[i]];
-       }
-       return count;
+	    unordered_map<char,int>mp;
+	    int ans=0;
+	    for(int i=0;i<s.length();i++){
+	        mp[s[i]]++;
+	        ans+=mp[s[i]];
+	    }
+	    return ans;
 	}
 };
 
