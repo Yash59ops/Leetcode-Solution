@@ -14,7 +14,7 @@ public:
             if(arr[n-1]<arr[i]){
                 cnt++;
             }else{
-                bre
+                break;
             }
         }
       return cnt;
