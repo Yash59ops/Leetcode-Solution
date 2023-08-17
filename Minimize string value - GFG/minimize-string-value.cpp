@@ -10,31 +10,22 @@ class Solution{
 public:	
 	int minValue(string S, int K)
 	{
-	    if(K>S.length()){
-            return 0;
-        }
-        unordered_map<char,int>m;
-        for(int i=0;i<S.length();i++){
-            m[S[i]]++;
-        }
-         while(K){
-           int maxi=INT_MIN;
-           char ch;
-           for(auto i:m){
-               if(i.second>maxi){
-                   ch=i.first;
-                   maxi=i.second;
-               }
-           }
-           m[ch]--;
-           K--;
-       }
-          int count=0;
-       
-       for(auto i:m){
-           count=count+i.second*i.second;
-       }
-       return count;
+	    unordered_map<char,int>map;
+	    priority_queue<int>q;
+	    int ans=0;
+	    for(auto i:S)map[i]++;
+	    for(auto i:map)q.push(i.second);
+	    while(K--){
+	        int num=q.top();
+	        if(num==0)return 0;
+	        q.pop();q.push(num-1);
+	    }
+	    while(q.size()>0){
+	        int num=q.top();
+	        ans+=(num*num);
+	        q.pop();
+	    }
+	    return ans;
 	}
 };
 
