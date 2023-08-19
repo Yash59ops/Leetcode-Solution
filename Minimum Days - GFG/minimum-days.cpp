@@ -30,29 +30,15 @@ public:
 // } Driver Code Ends
 class Solution {
   public:
-    int getMinimumDays(int n,string s, vector<int> &P) {
-      unordered_map<int,int>mp;
-        for(int i=0;i<n;i++)
-        mp[P[i]]=i;
-        int i=0;
-        int ans=-1;
-        while(i<n-1)
-        {
-            if(s[i]==s[i+1])
-            {
-                if(mp[i]<mp[i+1])
-                {
-                    s[i]='?';
-                }
-                else
-                {
-                    s[i+1]='?';
-                }
-                ans=max(ans,min(mp[i],mp[i+1]));
+    int getMinimumDays(int N,string S, vector<int> &P) {
+      int count=0;
+        for(int i=0;i<N-1;i++){
+            if(S[P[i]]==S[P[i]+1] || S[P[i]]==S[P[i]-1]){
+                count=i+1;
             }
-            i++ ;
+            S[P[i]]='?';
         }
-        return ans+1 ;
+        return count;
     }
 };
 
