@@ -7,33 +7,34 @@ using namespace std;
 class Solution 
 {
     public:
-     void dfs(int V, vector<int> adj[], vector<bool>& vis, int i, int &c){
-            vis[i]=true;
-            c++;
-            for(const auto& it: adj[i]){
-                if(!vis[it]){
-                    dfs(V, adj, vis, it, c);
-                }
-            }
-            
-        }
-	int findMotherVertex(int V, vector<int>adj[])
-	{
-	     vector<bool> vis(V, false);
-	    int ans;
-	    int c=0;
-	    for(int i=0; i<V; ++i){
-	        if(!vis[i]){
-	            dfs(V, adj, vis, i, c);
-	            ans=i;
-	            c=0;
+    //Function to find a Mother Vertex in the Graph.
+	void dfs(vector<int>adj[],int V,vector<bool>&vis,int i,int &cnt){
+	    vis[i]=true;
+	    cnt++;
+	    for(const auto &it:adj[i]){
+	        if(!vis[it]){
+	            dfs(adj,V,vis,it,cnt);
 	        }
 	    }
-	    vis.assign(V, false);
-	    dfs(V, adj,vis, ans, c);
-	    if(c==V) return ans;
-	    return -1;
-	   
+	}
+	int findMotherVertex(int V, vector<int>adj[])
+	{
+	   vector<bool>vis(V,false);
+	   int ans;
+	   int cnt=0;
+	   for(int i=0;i<V;i++){
+	       if(!vis[i]){
+	           dfs(adj,V,vis,i,cnt);
+	           ans=i;
+	           cnt=0;
+	       }
+	   }
+	   vis.assign(V,false);
+	   dfs(adj,V,vis,ans,cnt);
+	   if(cnt==V){
+	       return ans;
+	   }
+	   return -1;
 	}
 
 };
