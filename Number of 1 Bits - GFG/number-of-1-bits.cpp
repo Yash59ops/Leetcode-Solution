@@ -5,17 +5,18 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    int setBits(int N) {
-         int setBits=0;
-   while(N)
-   {
-         setBits++;
-        N=N&(N-1);
-   }
-
-       return setBits;
+    int setBits(int n) {
+             int cnt = 0;
+        while(n!=0){
+            if(n&1){
+                cnt++;
+            }
+            n=n>>1;
+        }
+        return cnt;
     }
 };
+
 
 //{ Driver Code Starts.
 int main() {
