@@ -35,18 +35,27 @@ struct Node
 class Solution
 {
     public:
+   Node *reverse (struct Node *head, int k)
+    { 
+        Node*cur=head;
+       Node*nextnode=head;
+        Node*prev=NULL;
+        int i=0;
+        while(i<k && cur){
+            nextnode=cur->next;
+            cur->next=prev;
+            prev=cur;
+            cur=nextnode;
+            i++;
+        }
+         if(nextnode)
+        head->next=reverse(nextnode,k);
+        return prev;
+    }
     Node* pairWiseSwap(struct Node* head) 
     {
-          if(head==NULL or head->next==NULL)
-        return head;
-
-    Node *new_head=pairWiseSwap(head->next->next);
-   
-    Node *temp=head->next;
-    temp->next=head;
-    head->next=new_head;
-    
-    return temp;
+       return reverse(head,2);
+      
     }
 };
 
