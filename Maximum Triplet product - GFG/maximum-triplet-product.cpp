@@ -12,35 +12,40 @@ class Solution {
   public:
     long long maxTripletProduct(long long arr[], int n)
     {
-      long long mn1=INT_MAX,mn2=INT_MAX,mx1=INT_MIN,mx2=INT_MIN,mx3=INT_MIN;
-        
-        for(int p=0;p<n;p++){
-            
-            //Calculate the first min and second min element
-            
-            if(arr[p]<mn1){
-                mn2=mn1;
-                mn1=arr[p];
+        long long first_max=INT_MIN;
+        long long second_max=INT_MIN;
+        long long third_max=INT_MIN;
+        long long first_min=INT_MAX;
+        long long second_min=INT_MAX;
+        for(int i=0;i<n;i++)
+        {
+            if(arr[i]>=first_max)
+            {
+                third_max=second_max;
+                second_max=first_max;
+                first_max=arr[i];
             }
-            else if(arr[p]<mn2){
-                mn2=arr[p];
+            
+            else if(arr[i]>=second_max)
+            {
+                third_max=second_max;
+                second_max=arr[i];
             }
-            
-            //Calculate the first max ,second max and third max elements
-            
-            if(arr[p]>mx1){
-                mx3=mx2;
-                mx2=mx1;
-                mx1=arr[p];
-            }else if(arr[p]>mx2){
-                mx3=mx2;
-                mx2=arr[p];
-            }else if(arr[p]>mx3){
-                mx3=arr[p];
+            else if(arr[i]>=third_max)
+            {
+                third_max=arr[i];
+                }
+            if(arr[i]<=first_min)
+            {
+                second_min=first_min;
+                first_min=arr[i];
+            }
+            else if(arr[i]<=second_min)
+            {
+                second_min=arr[i];
             }
         }
-        
-        return max((mn1*mn2*mx1),(mx1*mx2*mx3));
+        return (max(first_max*second_max*third_max ,first_max*second_min*first_min));
     }
 };
 
