@@ -112,48 +112,45 @@ struct Node
 class Solution
 {
 public:
-  int maxHeight(Node *root)
-
-    {
-
-        if(!root)
-
-            return 0;
-
-        int lh = maxHeight(root->left);
-
-        int rh = maxHeight(root->right);
-
-        return max(lh, rh)+1;
-
-    }    
-
-    int minHeight(Node *root)
-
-    {
-
-        if(!root)
-
-            return 0;
-
-        int lh = minHeight(root->left);
-
-        int rh = minHeight(root->right);
-
-        return min(lh, rh)+1;
-
+bool flag=true;
+void two_child(Node*root){
+    if(!root){
+        return;
     }
-
+  if(root->left && !root->right){
+      flag=false;
+      return;
+  }
+  if(root->right && !root->left){
+       flag=false;
+       return;
+  }
+  two_child(root->left);
+  two_child(root->right);
+}
+void solve(Node*root,unordered_map<int,int>&mp,int level){
+if(!root){
+    return;
+}    
+    if(!root->left && !root->right){
+        mp[level]++;
+        return;
+    }
+    solve(root->left,mp,level+1);
+    solve(root->right,mp,level+1);
+}
+bool same_level(Node*root){
+    unordered_map<int,int>mp;
+    solve(root,mp,0);
+    if(mp.size()>1){
+        return false;
+    }
+    return true;
+}
     bool isPerfect(Node *root)
-
     {
-
-        //code here
-
-        return maxHeight(root)==minHeight(root);
-
- 
-
+        two_child(root);
+       return same_level(root) && flag;
     }
 };
 
