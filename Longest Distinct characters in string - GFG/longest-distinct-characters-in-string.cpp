@@ -20,20 +20,17 @@ int main()
 
 int longestSubstrDistinctChars (string S)
 {
-unordered_map<char,int>mp;
-int i=0,j=0,ans=0;
-while(j<S.length()){
-    mp[S[j]]++;
-    while(mp[S[j]]>1){
-    mp[S[i]]--;
-        if(mp[S[i]]==0)
-        {
-            mp.erase(S[i]);
-        }
-        i++;
-    }
-    ans=max(ans,j-i+1);
-    j++;
-}
-return ans;
+  int ans=INT_MIN;
+  int i=0,j=0;
+  unordered_map<char,int>mp;
+  while(j<S.length()){
+      mp[S[j]]++;
+      while(mp[S[j]]>1){
+          mp[S[i]]--;
+          i++;
+      }
+      ans=max(ans,j-i+1);
+      j++;
+  }
+  return ans;
 }
