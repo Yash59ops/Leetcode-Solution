@@ -90,34 +90,32 @@ struct Node
 
 class Solution {
   public:
+  string help(Node*root,unordered_map<string,int>&mp){
+      if(!root){
+          return "#";
+      }
+      if(!root->left && !root->right){
+          return to_string(root->data);
+      }
+      string l=help(root->left,mp);
+      string r=help(root->right,mp);
+      string sol=l+','+r+','+to_string(root->data);
+      mp[sol]++;
+      return sol;
+  }
     /*This function returns true if the tree contains 
     a duplicate subtree of size 2 or more else returns false*/
-    string help(Node*root,unordered_map<string,int>&mp){
-        if(!root){
-            return "#";
-        }
-        if(!root->left && !root->right){
-         return to_string(root->data);
-        }
-        string l=help(root->left,mp);
-        string r=help(root->right,mp);
-        string sol=l+","+r+","+to_string(root->data);
-        mp[sol]++;
-        return sol;
-    }
     int dupSub(Node *root) {
-         unordered_map<string,int>mp;
-         help(root,mp);
-         for(auto it:mp){
-             if(it.second>=2){
-             
-                 return 1;
-             }
-         }
-         return 0;
-             }
+        unordered_map<string,int>mp;
+        help(root,mp);
+        for(auto it:mp){
+            if(it.second>=2){
+                return 1;
+            }
+        }
+        return 0;
+    }
 };
-
 
 //{ Driver Code Starts.
 
