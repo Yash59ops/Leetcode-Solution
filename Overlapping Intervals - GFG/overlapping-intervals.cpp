@@ -6,21 +6,19 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> overlappedInterval(vector<vector<int>>& intervals) {
-       vector<vector<int>>ans;
+       sort(intervals.begin() , intervals.end());
+       int n=intervals.size();
        int i=1;
-       sort(intervals.begin(),intervals.end());
+       vector<vector<int>>ans;
        ans.push_back(intervals[0]);
-       while(i<intervals.size()){
+       while(i<n){
            vector<int>&last=ans.back();
-          
-    
            if(last[1]<intervals[i][0]){
                ans.push_back(intervals[i]);
            }else{
                last[1]=max(last[1],intervals[i][1]);
            }
            i++;
-           
        }
        return ans;
     }
